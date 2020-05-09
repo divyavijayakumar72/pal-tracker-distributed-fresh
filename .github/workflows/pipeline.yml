@@ -18,6 +18,7 @@ jobs:
       - name: Create test database
         run: |
           mysql -uroot -proot < databases/create_databases.sql
+          chmod +x ./gradlew
           ./gradlew testMigrate
       - name: Build with Gradle
         run: ./gradlew clean build
@@ -174,6 +175,7 @@ jobs:
           cf api "$CF_API_URL"
           cf auth
           cf target -o "$CF_ORG" -s "$CF_SPACE"
+          chmod +x ./gradlew
           ./gradlew cfMigrate
         env:
           CF_API_URL: ${{ secrets.CF_API_URL }}
